@@ -1,22 +1,31 @@
-// Funcionalidade 21: Soma de elementos.
-// Objetivo: Soma todos os elementos de uma lista numérica.
-// Exemplo de entrada: { valores: [2, 3, 5] }
-// Implemente conforme as regras e critérios do enunciado fornecido pelo professor.
+const implemented = true; // mudar para true somente após os testes passarem
 
-const implemented = false;
-
-// Desenvolva a regra de negócio e valide todos os dados de entrada.
 function execute(input) {
-  // TODO: substituir este bloco pela implementação testada da funcionalidade.
-  void input;
-  throw new Error("Funcionalidade ainda não implementada.");
+  if (input === null || typeof input !== 'object') {
+    throw new Error('A entrada deve ser um objeto com o campo "valores".');
+  }
+
+  const { valores } = input;
+
+  if (!Array.isArray(valores)) {
+    throw new Error('O campo "valores" deve ser um array de números.');
+  }
+
+  for (let i = 0; i < valores.length; i++) {
+    if (!Number.isFinite(valores[i])) {
+      throw new Error(`Elemento na posição ${i} não é um número finito.`);
+    }
+  }
+
+  // reduce não modifica o array original e um array vazio resulta em 0
+  const soma = valores.reduce((acc, n) => acc + n, 0);
+  return { soma };
 }
 
-// Mantém o contrato de integração utilizado pela API central.
 module.exports = {
   id: 21,
-  name: "Soma de elementos",
-  description: "Soma todos os elementos de uma lista numérica.",
+  name: 'Soma de elementos',
+  description: 'Soma todos os elementos de uma lista numérica.',
   implemented,
   execute
 };
